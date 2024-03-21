@@ -1,0 +1,18 @@
+metadata:
+  name: "Check to make sure all Policies with ecs:CreateCluster have ecs:TagResource explicitly defined"
+  id: WELL_AWS_1
+  category: GENERAL_SECURITY
+definition:
+  or:
+  - cond_type: attribute
+    resource_types:
+      - AWS::IAM::Policy
+    attribute: PolicyDocument.Statement[?(@.Effect == Allow || !@.Effect)].Action
+    operator: "jsonpath_not_contains"
+    value: ecs:CreateCluster
+  - cond_type: attribute
+    resource_types:
+      - AWS::IAM::Policy
+    attribute: PolicyDocument.Statement[?(@.Effect == Allow || !@.Effect)].Action
+    operator: "jsonpath_contains"
+    value: ecs:TagResource
