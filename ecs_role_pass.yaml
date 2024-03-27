@@ -12,7 +12,6 @@ Resources:
           - Effect: Allow
             Action:
               - ecs:CreateCluster
-              - ecs:TagResource
             Resource: "*"
       Roles:
         - Ref: ECSRole
